@@ -58,21 +58,14 @@ public class Avion extends Thread {
             while(state != Estado.EN_TERMINAL){
                 if (state == Estado.VOLANDO) {
                     Thread.sleep(numerorandom());
-                    Estado decidir = randomDecision();
-                    if (decidir == Estado.VOLANDO) {
-                        System.out.println(this.code + " sigue volando");
-                        Thread.sleep(numerorandom());
-                    }
-                    if (state == Estado.ATERRIZANDO) {
-                        System.out.println(this.code + " va a aterrizar");
-                        aterrizar();
-                    }
+                    randomDecision();
+
                 }
-                try {
+                /*try {
                     Thread.sleep(500);
                 }catch(InterruptedException e){
                     System.out.println(e.getMessage());
-                }
+                }*/
 
             }
         } catch (Exception e) {
@@ -108,15 +101,16 @@ public class Avion extends Thread {
         setState(Estado.VOLANDO);
     }
 
-    public Estado randomDecision() {
+    public void randomDecision() throws InterruptedException {
         double random = Math.random();
         if(random<0.5){
             System.out.println(this.code+ " va a seguir volando");
-            return Estado.VOLANDO;
+            Thread.sleep(numerorandom());
+
         } else {
             System.out.println(this.code+ " va a aterrizar");
-            setState(Estado.ATERRIZANDO);
-            return Estado.ATERRIZANDO;
+            aterrizar();
+
         }
     }
 }
