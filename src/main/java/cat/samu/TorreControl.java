@@ -24,16 +24,18 @@ public class TorreControl {
         while(true){
             for (int i = 0; i < pistas.length; i++) {
                 if (pistas[i].tryLock()) {
-                    System.out.println("la pista "+ pistas[i]+" esta libre");
+                    System.out.println("la pista "+ pistas[i].toString()+" esta bloqueada");
                     return i;
                 }
             }
+            //System.out.println("pistas libres"+pistas.toString());
         }
     }
 
     public void liberarPista(int pista){
         //controlLock.lock();
         pistas[pista].unlock();
+        System.out.println("la pista "+ pistas[pista].toString()+" esta libre");
         try{
             //pistaslibres[pista] = true;
         } finally{
