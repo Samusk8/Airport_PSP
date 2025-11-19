@@ -48,6 +48,7 @@ public class Airport {
     static void printAviones(ArrayList<Avion> aviones){
         boolean continua = true;
         while(continua){
+            System.out.println("-----------------------");
             for(Avion avion : aviones){
                 System.out.print("["+avion.getCode()+"]");
                 switch (avion.getEstado()){
@@ -67,6 +68,12 @@ public class Airport {
                         System.out.println("✅");
                         break;
                 }
+            }
+            System.out.println("-----------------------");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
 
         }

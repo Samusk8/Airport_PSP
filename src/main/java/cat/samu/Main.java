@@ -16,8 +16,11 @@ public class Main {
             int nPistas = Airport.askPistas();
             System.out.println(nAviones + " " + nPistas);
 
+            TorreControl torre = new TorreControl(nPistas);
+
             for(int i = 0; i < nAviones; i++){
-                aviones.add(new Avion("IB000"+i, Estado.EN_ESPERA));
+                Estado randomState = randomState();
+                aviones.add(new Avion("IB00"+i,randomState));
                 System.out.println();
             }
             new Thread(() -> Airport.printAviones(aviones)).start();
@@ -26,6 +29,12 @@ public class Main {
         }catch(Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    static Estado randomState(){
+        Estado[] valores = Estado.values();
+        int i =  (int) (Math.random()*valores.length);
+        return valores[i];
     }
 
 
