@@ -75,7 +75,7 @@ public class Avion extends Thread {
 
     public int numerorandom() {
         Random r = new Random();
-        return r.nextInt((5000-1000)+1)+1000;
+        return r.nextInt((10000-1000)+1)+1000;
     }
 
     public void aterrizar() throws InterruptedException {

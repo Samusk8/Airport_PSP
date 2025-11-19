@@ -49,16 +49,19 @@ public class Airport {
     //static ArrayList<Avion> aviones = new ArrayList<>();
     static void combustible(ArrayList<Avion> aviones){
         for (Avion a : aviones) {
-          combustibleMapa.put(a,100);
+          combustibleMapa.put(a,50);
         }
     }
 
-    static void reducirCombustible(){
+    static void reducirCombustible() throws InterruptedException {
         while (true) {
             for (Avion a : combustibleMapa.keySet()) {
                 if (a.getEstado() == Estado.VOLANDO){
                     Integer combustible = combustibleMapa.get(a);
                     combustibleMapa.put(a,combustible-1);
+                }
+                if (combustibleMapa.get(a) < 20 && a.getEstado() == Estado.VOLANDO){
+                    a.aterrizar();
                 }
             }
             try {

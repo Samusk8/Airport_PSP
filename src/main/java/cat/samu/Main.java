@@ -29,7 +29,14 @@ public class Main {
             }
 
             Airport.combustible(aviones);
-            new Thread(() -> Airport.reducirCombustible()).start();
+
+            new Thread(() -> {
+                try {
+                    Airport.reducirCombustible();
+                } catch (InterruptedException e) {
+                    System.out.println(e.getMessage());
+                }
+            }).start();
 
             new Thread(() -> Airport.printAviones(aviones)).start();
 
