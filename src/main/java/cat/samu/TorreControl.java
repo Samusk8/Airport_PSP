@@ -29,6 +29,11 @@ public class TorreControl {
                 }
             }
             //System.out.println("pistas libres"+pistas.toString());
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
         }
     }
 

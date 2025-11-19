@@ -54,7 +54,8 @@ public class Avion extends Thread {
             if(state == Estado.EN_ESPERA){
                 Thread.sleep(numerorandom());
                 despegar();
-            } else if (state == Estado.VOLANDO) {
+            }
+            if (state == Estado.VOLANDO) {
                 Thread.sleep(numerorandom());
                 aterrizar();
             }
@@ -69,7 +70,13 @@ public class Avion extends Thread {
     }
 
     public void aterrizar() throws InterruptedException {
-        int pista = torre.solicitarAterrizaje();
+        int pista = -1;
+        while(pista == -1) {
+            pista = torre.solicitarAterrizaje();
+            if(pista == -1){
+                Thread.sleep(500);
+            }
+        }
         setState(Estado.ATERRIZANDO);
         Thread.sleep(numerorandom());
         torre.liberarPista(pista);
