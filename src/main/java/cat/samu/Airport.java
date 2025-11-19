@@ -61,6 +61,7 @@ public class Airport {
                     combustibleMapa.put(a,combustible-1);
                 }
                 if (combustibleMapa.get(a) < 20 && a.getEstado() == Estado.VOLANDO){
+                    System.out.println("["+a.getCode()+"]"+"‼️Combustible Bajo");
                     a.aterrizar();
                 }
             }
@@ -73,36 +74,51 @@ public class Airport {
     }
 
     static void printAviones(ArrayList<Avion> aviones){
+        int contador = 0;
         boolean continua = true;
         while(continua){
-            System.out.println("-----------------------");
+            contador+=2;
+            System.out.println("-----------------------"+"Airport Schedule"+"-----------------------");
             for(Avion avion : aviones){
                 Integer combustible = combustibleMapa.get(avion);
                 System.out.print("["+avion.getCode()+"]");
                 switch (avion.getEstado()){
                     case EN_ESPERA:
-                        System.out.print("⌛");
-                        System.out.println(combustible);
+                        System.out.print("⌛ En Espera...");
+                        System.out.println(" Combustible restante: "+combustible + "%");
                         break;
                     case DESPEGANDO:
-                        System.out.print("🛫");
-                        System.out.println(combustible);
+                        System.out.print("🛫 Despegando...");
+                        System.out.println(" Combustible restante: "+combustible + "%");
                         break;
                     case VOLANDO:
-                        System.out.print("✈️");
-                        System.out.println(combustible);
+                        System.out.print("✈️ En Vuelo...");
+                        System.out.println(" Combustible restante: "+combustible + "%");
                         break;
                     case ATERRIZANDO:
-                        System.out.print("🛬");
-                        System.out.println(combustible);
+                        System.out.print("🛬 Aterrizando...");
+                        System.out.println(" Combustible restante: "+combustible + "%");
                         break;
                     case EN_TERMINAL:
-                        System.out.print("✅");
-                        System.out.println(combustible);
+                        System.out.print("✅ En Terminal...");
+                        System.out.println(" Combustible restante: "+combustible + "%");
                         break;
                 }
             }
-            System.out.println("-----------------------");
+            System.out.println("-----------------------"+" Tiempo: "+contador);
+
+            boolean fin = true;
+            for (Avion avion : aviones) {
+                if (avion.getEstado() != Estado.EN_TERMINAL) {
+                    fin = false;
+                    break;
+                }
+            }
+            if (fin) {
+                System.out.println("Han aterrizado todos los aviones correctamente ✅");
+                System.out.println("Han tardado: "+contador+" segundos");
+                System.exit(0);
+            }
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
