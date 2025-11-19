@@ -5,6 +5,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TorreControl {
     //private int nPistas;
     private ReentrantLock[] pistas;
+    //private int colaAterrizaje = 0;
     //private boolean[] pistaslibres;
 
     //private ReentrantLock controlLock = new ReentrantLock();
@@ -21,7 +22,9 @@ public class TorreControl {
     }
 
     public int solicitarAterrizaje(){
-        while(true){
+        //colaAterrizaje++;
+        int pista = -1;
+        while(pista == -1){
             for (int i = 0; i < pistas.length; i++) {
                 if (pistas[i].tryLock()) {
                     System.out.println("la pista "+ pistas[i].toString()+" esta bloqueada");
@@ -35,6 +38,30 @@ public class TorreControl {
                 System.out.println(e.getMessage());
             }
         }
+            //colaAterrizaje--;
+            return pista;
+    }
+
+    public int solicitarDespegue() throws InterruptedException {
+        int pista = -1;
+        while(pista == -1){
+            /*if(colaAterrizaje > 0){
+                Thread.sleep(50);
+                continue;
+            }*/
+            for (int i = 0; i < pistas.length; i++) {
+                if (pistas[i].tryLock()) {
+                    System.out.println("la pista "+ pistas[i].toString());
+                    return i;
+                }
+            }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        return pista;
     }
 
     public void liberarPista(int pista){

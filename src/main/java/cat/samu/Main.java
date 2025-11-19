@@ -37,7 +37,7 @@ public class Main {
     }
 
     static Estado randomState(){
-        Estado[] valores = {Estado.EN_ESPERA, Estado.VOLANDO};
+        Estado[] valores = {Estado.EN_ESPERA};
         int i =  (int) (Math.random()*valores.length);
         return valores[i];
     }

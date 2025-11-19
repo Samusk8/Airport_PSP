@@ -51,11 +51,11 @@ public class Avion extends Thread {
                 default:
                     break;
             }*/
-            if(state == Estado.EN_ESPERA){
-                Thread.sleep(numerorandom());
-                despegar();
-            }
             while(state != Estado.EN_TERMINAL){
+                if(state == Estado.EN_ESPERA){
+                    Thread.sleep(numerorandom());
+                    despegar();
+                }
                 if (state == Estado.VOLANDO) {
                     Thread.sleep(numerorandom());
                     randomDecision();
@@ -94,7 +94,7 @@ public class Avion extends Thread {
     }
 
     public void despegar() throws InterruptedException {
-        int pista = torre.solicitarAterrizaje();
+        int pista = torre.solicitarDespegue();
         setState(Estado.DESPEGANDO);
         Thread.sleep(numerorandom());
         torre.liberarPista(pista);
