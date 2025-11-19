@@ -28,6 +28,9 @@ public class Main {
                 a.start();
             }
 
+            Airport.combustible(aviones);
+            new Thread(() -> Airport.reducirCombustible()).start();
+
             new Thread(() -> Airport.printAviones(aviones)).start();
 
 
