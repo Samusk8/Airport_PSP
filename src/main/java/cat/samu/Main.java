@@ -20,6 +20,7 @@ public class Main {
                 aviones.add(new Avion("IB000"+i, Estado.EN_ESPERA));
                 System.out.println();
             }
+            new Thread(() -> Airport.printAviones(aviones)).start();
             System.out.println(nAviones + " " + nPistas);
 
         }catch(Exception e) {

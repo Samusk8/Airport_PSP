@@ -49,6 +49,7 @@ public class Airport {
         boolean continua = true;
         while(continua){
             for(Avion avion : aviones){
+                System.out.print("["+avion.getCode()+"]");
                 switch (avion.getEstado()){
                     case EN_ESPERA:
                         System.out.println("⌛");
