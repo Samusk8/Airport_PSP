@@ -20,11 +20,16 @@ public class Main {
 
             for(int i = 0; i < nAviones; i++){
                 Estado randomState = randomState();
-                aviones.add(new Avion("IB00"+i,randomState));
+                aviones.add(new Avion("IB00"+i,randomState, torre));
                 System.out.println();
             }
+
+            for (Avion a : aviones) {
+                a.start();
+            }
+
             new Thread(() -> Airport.printAviones(aviones)).start();
-            System.out.println(nAviones + " " + nPistas);
+
 
         }catch(Exception e) {
             System.out.println(e.getMessage());
