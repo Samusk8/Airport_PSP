@@ -5,51 +5,48 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TorreControl {
     //private int nPistas;
     private ReentrantLock[] pistas;
-    private boolean[] pistaslibres;
+    //private boolean[] pistaslibres;
 
-    private ReentrantLock controlLock = new ReentrantLock();
+    //private ReentrantLock controlLock = new ReentrantLock();
 
 
     public TorreControl(int nPistas) {
         //this.nPistas = nPistas;
         pistas  = new ReentrantLock[nPistas];
-        pistaslibres = new boolean[nPistas];
+        //pistaslibres = new boolean[nPistas];
         for(int i = 0; i < nPistas; i++){
-            pistas[i] = new ReentrantLock();
-            pistaslibres[i] = true;
+            pistas[i] = new ReentrantLock(true);
+            //pistaslibres[i] = true;
         }
     }
 
     public int solicitarAterrizaje(){
         while(true){
-            controlLock.lock();
-            try{
-                int pista = buscarpistaLibre();
-                if (pista >= 0){
-                    pistaslibres[pista] = false;
-                    return pista;
+            for (int i = 0; i < pistas.length; i++) {
+                if (pistas[i].tryLock()) {
+                    System.out.println("la pista "+ pistas[i]+" esta libre");
+                    return i;
                 }
-            } finally{
-                controlLock.unlock();
             }
         }
     }
 
     public void liberarPista(int pista){
-        controlLock.lock();
+        //controlLock.lock();
+        pistas[pista].unlock();
         try{
-            pistaslibres[pista] = true;
+            //pistaslibres[pista] = true;
         } finally{
-            controlLock.unlock();
+            //controlLock.unlock();
         }
     }
 
-    public int buscarpistaLibre(){
+    /*public int buscarpistaLibre(){
         for (int i = 0; i < pistaslibres.length; i++) {
             if(pistaslibres[i] == true){
                 return i;
             }
         }
         return -1;
-    }
+    }*/
 }
