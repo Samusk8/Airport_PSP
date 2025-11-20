@@ -32,7 +32,7 @@ public class Airport {
         int nPistas = 0;
         boolean continua = true;
         while(continua){
-            System.out.println("Ingresa el número de aviones");
+            System.out.println("Ingresa el número de pistas");
             System.out.println("(min 2)");
             sc = new Scanner(System.in);
             nPistas = sc.nextInt();
